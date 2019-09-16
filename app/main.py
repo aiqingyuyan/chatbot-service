@@ -191,6 +191,3 @@ def serve():
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     serve()
-
-# 				# # Exclude the message from a bot, also slash command
-# 				# regex = r'(^\/)'
