@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatbot-service
+spec:
+  ports:
+  - port: 50051
+    targetPort: 50051
+    protocol: TCP
+    name: http2
+  selector:
+    app: chatbot-service
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: chatbot-service
+spec:
+  template:
+    metadata:
+      labels:
+        app: chatbot-service
+    spec:
+      containers:
+      - name: chatbot
+        image: aiqingyuyan/chatbot-simple:latest
+        ports:
+          - containerPort: 50051

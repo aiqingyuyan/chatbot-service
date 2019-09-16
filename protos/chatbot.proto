@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package chatbot;
+
+option java_multiple_files=true;
+option java_package="com.proto.chatbot";
+
+message HeartBeat {
+    int32 number = 1;
+}
+
+message ChatbotRequest {
+    string question = 1;
+    string user = 2;
+    string channel = 3;
+}
+
+message ChatbotResponse {
+    string answer = 1;
+}
+
+service ChatbotService {
+    rpc heartBeat (HeartBeat) returns (HeartBeat);
+		
+    rpc chat (ChatbotRequest) returns (ChatbotResponse);
+}
