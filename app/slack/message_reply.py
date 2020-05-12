@@ -14,7 +14,7 @@ def reply_with(message, user, channel):
 		args = {
 				'token': BOT_USER_OAUTH_ACCESS_TOKEN,
 				'channel': channel,
-				'text': ' '.join(message).capitalize()
+				'text': message
 		}
 
 		res = requests.post(slack_api_url, data=args)

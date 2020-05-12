@@ -14,6 +14,7 @@ import logging
 import grpc
 import time
 import os
+import re
 import bot_common.constants as constants
 import generated.chatbot_pb2 as chatbot_pb2
 import generated.chatbot_pb2_grpc as chatbot_pb2_grpc
@@ -82,9 +83,8 @@ class ChatbotService(chatbot_pb2_grpc.ChatbotServiceServicer):
             word for word in final_words \
                 if not (word == 'EOS' or word == 'PAD')
         ]
-        response = ' '.join(final_words).capitalize()
 
-        return response
+        return final_words
 
 
     def chat(self, request, context):
@@ -95,6 +95,8 @@ class ChatbotService(chatbot_pb2_grpc.ChatbotServiceServicer):
 
         if question:
             response = self.getResponse(question)
+            response = ' '.join(response).capitalize()
+            response = re.sub(r'(\ .){2,}$', '.', response)
 
             if user and channel:
                 response_from_slack = reply_with(response, user, channel)
@@ -109,7 +111,7 @@ class ChatbotService(chatbot_pb2_grpc.ChatbotServiceServicer):
             )
             logger.error('All arguments are empty of null.')
 
-        return chatbot_pb2.ChatbotResponse(answer=' '.join(response).capitalize())
+        return chatbot_pb2.ChatbotResponse(answer=response)
 
 
 def serve():
