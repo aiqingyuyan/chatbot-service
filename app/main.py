@@ -20,9 +20,9 @@ import generated.chatbot_pb2 as chatbot_pb2
 import generated.chatbot_pb2_grpc as chatbot_pb2_grpc
 
 
-logger = logging.getLogger(__name__)
-
 ONE_DAY_IN_SECONDS = 60 * 60 * 24
+
+logger = logging.getLogger(__name__)
 
 
 def initializeBotsParams(model_params_file):
