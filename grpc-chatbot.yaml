@@ -16,6 +16,7 @@ kind: Deployment
 metadata:
   name: chatbot-service
 spec:
+  replicas: 1
   template:
     metadata:
       labels:
@@ -23,6 +24,12 @@ spec:
     spec:
       containers:
       - name: chatbot
-        image: aiqingyuyan/chatbot-simple:latest
+        # e.g. aiqingyuyan/chatbot-simple:latest
+        image: <image placeholder>
+        env:
+        - name: SLACK_SIGNING_SECRET
+          value: $SLACK_SIGNING_SECRET
+        - name: BOT_USER_OAUTH_ACCESS_TOKEN
+          value: $BOT_USER_OAUTH_ACCESS_TOKEN
         ports:
           - containerPort: 50051
